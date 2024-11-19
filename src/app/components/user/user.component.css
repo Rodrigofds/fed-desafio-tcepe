@@ -1,13 +1,84 @@
-/* Estilo do frame da tabela */
-.user-table-frame {
+/* Estilo geral */
+:host {
+  display: flex;
+  flex-direction: column; /* Alinha os itens em coluna */
+  justify-content: flex-start; /* Alinha itens no início */
+  align-items: stretch; /* Estica os itens para preencher o espaço */
+  height: 100vh;
+  background-color: #f0f2f5; /* Cor de fundo neutra */
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #003366; /* Azul escuro */
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between; /* Alinha itens à esquerda e direita */
+  align-items: center;
+}
+
+.title {
+  font-size: 24px; /* Tamanho da fonte do título */
+}
+
+.btn-login {
+  width: 200px;
+  background-color: #ff6600; /* Laranja */
+  color: white;
+  border: none;
+  padding: 5px 15px; /* Tamanho do botão */
+  border-radius: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #d35a09; /* Laranja escuro */
+}
+
+/* Estilo das ações */
+.actions {
   margin: 20px;
-  background-color: #fff; /* Fundo branco para o frame */
-  padding: 20px; /* Padding para o frame */
-  border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  display: flex; /* Usa flexbox para alinhar os itens */
+  align-items: center; /* Alinha os itens verticalmente */
+}
+
+.actions .search-input {
+  width: 250px; /* Largura fixa para a barra de busca */
+  padding: 0.2rem; /* Padding para a barra de busca */
+  margin-right: 10px; /* Espaço à direita */
+  border: 1px solid #ccc; /* Borda leve */
+  border-radius: 4px; /* Bordas arredondadas */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+}
+
+/* Estilo do botão de busca */
+.btn-search {
+  width: 100;
+  padding: 0.2rem; /* Tamanho do botão de busca */
+  background-color: #007bff; /* Azul */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-search:hover {
+  background-color: #0056b3; /* Azul escuro */
 }
 
 /* Estilo da tabela de usuários */
+.user-table-frame {
+  margin: 20px; /* Margem ao redor do frame da tabela */
+  padding: 20px; /* Padding interno do frame */
+  background-color: #fff; /* Fundo branco para o frame */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
 .user-table {
   width: 100%; /* Tabela ocupará 100% do espaço disponível */
   border-collapse: collapse; /* Remove espaços entre as células */
@@ -18,7 +89,7 @@ table {
 }
 
 th, td {
-  padding: 10px; /* Espaçamento interno */
+  padding: 12px; /* Espaçamento interno */
   text-align: left; /* Alinha o texto à esquerda */
   border-bottom: 1px solid #ddd; /* Linha abaixo das células */
 }
@@ -32,10 +103,147 @@ tr:hover {
   background-color: #f1f1f1; /* Efeito hover nas linhas */
 }
 
-/* Estilo da barra de busca */
-.search-input {
-  padding: 10px;
-  font-size: 16px;
+/* Estilo para os botões de ação */
+.user-actions {
+  margin: 20px; /* Margem ao redor dos botões */
+  display: flex; /* Usa flexbox para alinhar os botões */
+  justify-content: flex-start; /* Alinha os botões à esquerda */
+}
+
+.user-actions button {
+  padding: 8px 12px; /* Tamanho dos botões */
+  font-size: 14px; /* Tamanho da fonte dos botões */
+  border: none; /* Remove bordas */
+  border-radius: 4px; /* Bordas arredondadas */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  margin-right: 10px; /* Espaço entre os botões */
+}
+
+.user-actions .btn-new {
+  background-color: #28a745; /* Verde para Novo */
+}
+
+.user-actions .btn-new:hover {
+  background-color: #218838; /* Verde escuro */
+}
+
+.user-actions .btn-edit {
+  background-color: #ffc107; /* Amarelo para Editar */
+}
+
+.user-actions .btn-edit:hover {
+  background-color: #e0a800; /* Amarelo escuro */
+}
+
+.user-actions .btn-delete {
+  background-color: #dc3545; /* Vermelho para Excluir */
+}
+
+.user-actions .btn-delete:hover {
+  background-color: #c82333; /* Vermelho escuro */
+}
+
+/* Estilo do modal */
+.modal {
+  position: fixed; /* Fixa o modal na tela */
+  top: 0;
+  left: 0;
+  width: 100%; /* Largura total */
+  height: 100%; /* Altura total */
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+  display: flex; /* Usa flexbox para centralizar */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.modal-content {
+  background-color: white; /* Fundo do modal */
+  padding: 20px; /* Espaçamento interno */
+  border-radius: 8px; /* Bordas arredondadas */
+  width: 400px; /* Largura fixa do modal */
+  max-width: 90%; /* Largura máxima */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra leve */
+}
+
+/* Estilo dos grupos de formulário */
+.form-group {
+  margin-bottom: 15px; /* Espaçamento entre os campos */
+}
+
+label {
+  display: block; /* Faz com que o label ocupe uma linha inteira */
+  margin-bottom: 5px; /* Espaçamento entre o label e o input */
+  font-weight: bold; /* Negrito para o label */
+}
+
+input {
+  width: calc(100% - 20px); /* Ajusta a largura do input */
+  padding: 10px; /* Espaçamento interno */
   border: 1px solid #ccc; /* Borda leve */
   border-radius: 4px; /* Bordas arredondadas */
+}
+
+/* Estilo dos botões no modal */
+.modal-actions {
+  display: flex; /* Usa flexbox para alinhar os botões */
+  justify-content: space-between; /* Distribuir os botões */
+  margin-top: 15px; /* Espaçamento acima dos botões */
+}
+
+button {
+  padding: 10px 15px;
+  border: none; /* Remove bordas */
+  border-radius: 4px; /* Bordas arredondadas */
+  cursor: pointer; /* Muda o cursor para indicar que o botão é clicável */
+  width: 22%; /* Botões ocupam 48% da largura do modal */
+}
+
+button:hover {
+  opacity: 0.9; /* Efeito hover suave */
+}
+
+/* Estilo para o botão cancelar no modal */
+button.cancel {
+  background-color: #6c757d; /* Cinza */
+}
+
+button.cancel:hover {
+  background-color: #5a6268; /* Cinza escuro */
+}
+
+/* Estilo para o botão de salvar no modal */
+.btn-new-car {
+  background-color: #007bff; /* Azul */
+  color: white;
+}
+
+.btn-new-car:hover {
+  background-color: #0056b3; /* Azul escuro */
+}
+
+.btn-remove-car {
+  background-color: #dc3545; /* Vermelho para remover */
+  color: white;
+  border: none;
+  padding: 5px 10px; /* Tamanho do botão */
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px; /* Espaço acima do botão */
+  font-size: 12px; /* Tamanho da fonte */
+}
+
+.btn-remove-car:hover {
+  background-color: #c82333; /* Vermelho escuro */
+}
+
+.remove-car {
+  color: #dc3545; /* Vermelho para o ícone de remoção */
+  font-size: 20px; /* Tamanho do ícone */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  margin-left: 10px; /* Espaço à esquerda do ícone */
+  vertical-align: middle; /* Alinha o ícone com o texto */
+}
+
+.remove-car:hover {
+  color: #c82333; /* Vermelho escuro ao passar o mouse */
 }

@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  userId!: number;
   modalMode: string = '';
   showModal: boolean = false;
   users: any[] = [];
@@ -31,8 +32,9 @@ export class UserComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    this.newUser.cars = this.newUser.cars || [];
     this.loadUsers();
+    this.newUser.cars = this.newUser.cars || [];
+
   }
 
   navigateToLogin(): void {
@@ -218,7 +220,13 @@ export class UserComponent implements OnInit {
     }
   }
 
-  getCarForRow(userIndex: number, carIndex: number): any | null {
-    return this.users[userIndex].cars[carIndex] || null;
+  removeCar(index: number): void {
+    if (this.newUser.cars && this.newUser.cars.length > index) {
+      this.newUser.cars.splice(index, 1);
+    }
+  }
+
+  getMaxCars(users: any[]): number {
+    return Math.max(...users.map(user => user.cars.length));
   }
 }

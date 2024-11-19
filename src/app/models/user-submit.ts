@@ -9,5 +9,5 @@ export interface UserSubmit {
   login: string;
   password: string;
   phone?: string;
-  cars?: CarSubmit[];
+  cars: CarSubmit[];
 }

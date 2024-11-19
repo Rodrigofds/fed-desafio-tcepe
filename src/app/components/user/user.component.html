@@ -15,42 +15,40 @@
 
 <div class="user-table-frame">
   <div class="user-table">
-    <table>
+    <table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
       <thead>
         <tr>
+          <th>User</th>
           <th *ngFor="let user of users">
-            <div class="user-header">
-              <p><strong>ID:</strong> {{ user.id }}</p>
-              <p><strong>Nome:</strong> {{ user.firstName }}</p>
-              <p><strong>Sobrenome:</strong> {{ user.lastName }}</p>
-            </div>
+            {{ user.firstName }} {{ user.lastName }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="users.length === 0">
-          <td colspan="5" style="text-align: center;">Nenhum usuário encontrado.</td>
-        </tr>
-        <ng-container *ngFor="let user of users">
+        <ng-container *ngFor="let rowIndex of getMaxCars(users) | range">
           <tr>
-            <td rowspan="user.cars.length + 1">{{ user.id }}</td>
-            <td rowspan="user.cars.length + 1">{{ user.firstName }}</td>
-            <td rowspan="user.cars.length + 1">{{ user.lastName }}</td>
-            <td *ngIf="user.cars.length > 0">{{ user.cars[0]?.year }} - {{ user.cars[0]?.model }}</td>
-          </tr>
-          <tr *ngFor="let car of user.cars.slice(1)">
-            <td>{{ car.year }} - {{ car.model }}</td>
+
+            <td>Car {{ rowIndex + 1 }}</td>
+            <td *ngFor="let user of users">
+              <ng-container *ngIf="user.cars[rowIndex]">
+                <div>ID: {{ user.cars[rowIndex].id }}</div>
+                <div>Model: {{ user.cars[rowIndex].model }}</div>
+                <div>Year: {{ user.cars[rowIndex].year }}</div>
+                <div>Plate: {{ user.cars[rowIndex].licensePlate }}</div>
+              </ng-container>
+            </td>
           </tr>
         </ng-container>
       </tbody>
     </table>
+
   </div>
 </div>
 
 <div class="user-actions">
   <button class="btn-new" (click)="openModal('create')">Novo Usuário</button>
-  <button class="btn-edit" [disabled]="!selectedUserId" (click)="editUser()">Editar Usuário</button>
-  <button class="btn-delete" [disabled]="!selectedUserId" (click)="deleteUser()">Excluir Usuário</button>
+  <button class="btn-edit" [disabled]="!selectedUserId" (click)="openModal('edit')">Editar Usuário</button>
+  <button class="btn-delete" [disabled]="!selectedUserId" (click)="openModal('delete')">Excluir Usuário</button>
 </div>
 
 <div *ngIf="showModal" class="modal">
