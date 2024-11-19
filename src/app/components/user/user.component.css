@@ -1,0 +1,41 @@
+/* Estilo do frame da tabela */
+.user-table-frame {
+  margin: 20px;
+  background-color: #fff; /* Fundo branco para o frame */
+  padding: 20px; /* Padding para o frame */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+/* Estilo da tabela de usuários */
+.user-table {
+  width: 100%; /* Tabela ocupará 100% do espaço disponível */
+  border-collapse: collapse; /* Remove espaços entre as células */
+}
+
+table {
+  width: 100%; /* Tabela ocupará 100% do espaço disponível */
+}
+
+th, td {
+  padding: 10px; /* Espaçamento interno */
+  text-align: left; /* Alinha o texto à esquerda */
+  border-bottom: 1px solid #ddd; /* Linha abaixo das células */
+}
+
+th {
+  background-color: #f7f7f7; /* Cor de fundo para cabeçalho */
+  font-weight: bold; /* Negrito para cabeçalho */
+}
+
+tr:hover {
+  background-color: #f1f1f1; /* Efeito hover nas linhas */
+}
+
+/* Estilo da barra de busca */
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc; /* Borda leve */
+  border-radius: 4px; /* Bordas arredondadas */
+}

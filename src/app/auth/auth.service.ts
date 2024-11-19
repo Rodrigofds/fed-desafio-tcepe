@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'localhost:8080/api/signin';
+  private apiUrl = 'http://localhost:8080/api/signin';
 
   constructor(private http: HttpClient) {}
 
@@ -21,8 +21,14 @@ export class AuthService {
       password
     };
 
-    return this.http.post<{ token: string }>(this.apiUrl, body, { headers });
-  }
+    return this.http.post<{ token: string }>(this.apiUrl, body, { headers }).pipe(
+      tap(response => {
+        if (response.token) {
+          this.storeToken(response.token);
+        }
+      })
+    );
+  } 
 
   storeToken(token: string): void {
     sessionStorage.setItem('token', token);

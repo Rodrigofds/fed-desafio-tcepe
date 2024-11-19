@@ -1,6 +1,6 @@
-import { Car } from "./car";
+import { CarSubmit } from "./car-submit";
 
-export interface User {
+export interface UserSubmit {
   id?: number;
   firstName: string;
   lastName: string;
@@ -9,5 +9,5 @@ export interface User {
   login: string;
   password: string;
   phone?: string;
-  cars?: Car[];
+  cars?: CarSubmit[];
 }

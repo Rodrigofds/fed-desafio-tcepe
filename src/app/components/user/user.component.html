@@ -1,1 +1,108 @@
-<p>user works!</p>
+<div class="navbar">
+  <span class="title">Gerenciador de Usuários e Carros</span>
+  <button class="btn-login" (click)="navigateToLogin()">Login</button>
+</div>
+
+<div class="actions">
+  <input
+    type="text"
+    placeholder="Buscar usuário por ID"
+    [(ngModel)]="selectedUserId"
+    class="search-input"
+  />
+  <button class="btn-search" (click)="searchUserById()">Buscar</button>
+</div>
+
+<div class="user-table-frame">
+  <div class="user-table">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let user of users">
+            <div class="user-header">
+              <p><strong>ID:</strong> {{ user.id }}</p>
+              <p><strong>Nome:</strong> {{ user.firstName }}</p>
+              <p><strong>Sobrenome:</strong> {{ user.lastName }}</p>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="users.length === 0">
+          <td colspan="5" style="text-align: center;">Nenhum usuário encontrado.</td>
+        </tr>
+        <ng-container *ngFor="let user of users">
+          <tr>
+            <td rowspan="user.cars.length + 1">{{ user.id }}</td>
+            <td rowspan="user.cars.length + 1">{{ user.firstName }}</td>
+            <td rowspan="user.cars.length + 1">{{ user.lastName }}</td>
+            <td *ngIf="user.cars.length > 0">{{ user.cars[0]?.year }} - {{ user.cars[0]?.model }}</td>
+          </tr>
+          <tr *ngFor="let car of user.cars.slice(1)">
+            <td>{{ car.year }} - {{ car.model }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="user-actions">
+  <button class="btn-new" (click)="openModal('create')">Novo Usuário</button>
+  <button class="btn-edit" [disabled]="!selectedUserId" (click)="editUser()">Editar Usuário</button>
+  <button class="btn-delete" [disabled]="!selectedUserId" (click)="deleteUser()">Excluir Usuário</button>
+</div>
+
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <h2>{{ modalMode === 'create' ? 'Criar Novo Usuário' : (modalMode === 'edit' ? 'Editar Usuário' : 'Excluir Usuário') }}</h2>
+
+    <form *ngIf="modalMode !== 'delete'" (ngSubmit)="modalMode === 'create' ? createUser(newUser) : editUser()">
+      <label for="firstName">Primeiro Nome:</label>
+      <input [(ngModel)]="newUser.firstName" name="firstName" required>
+
+      <label for="lastName">Sobrenome:</label>
+      <input [(ngModel)]="newUser.lastName" name="lastName" required>
+
+      <label for="birthday">Data de Nascimento:</label>
+      <input [(ngModel)]="newUser.birthday" name="birthday" type="date" required>
+
+      <label for="login">E-mail:</label>
+      <input [(ngModel)]="newUser.email" name="E-mail" required>
+
+      <label for="login">Login:</label>
+      <input [(ngModel)]="newUser.login" name="login" required>
+
+      <label for="password">Senha:</label>
+      <input [(ngModel)]="newUser.password" name="password" type="password" required>
+
+      <label for="phone">Telefone:</label>
+      <input [(ngModel)]="newUser.phone" name="phone" required>
+
+      <label>Carros:</label>
+      <div *ngFor="let car of newUser.cars || []; let i = index" class="form-group">
+        <label for="year">Ano:</label>
+        <input [(ngModel)]="car.year" placeholder="Ano" required>
+
+        <label for="model">Modelo:</label>
+        <input [(ngModel)]="car.model" placeholder="Modelo" required>
+
+        <label for="licensePlate">Placa:</label>
+        <input [(ngModel)]="car.licensePlate" placeholder="Placa" required>
+
+        <label for="color">Cor:</label>
+        <input [(ngModel)]="car.color" placeholder="Cor" required>
+      </div>
+      <button type="button" (click)="addCar()">Adicionar Carro</button>
+
+      <button type="submit">{{ modalMode === 'create' ? 'Salvar' : 'Atualizar' }}</button>
+      <button type="button" (click)="closeModal()">Cancelar</button>
+    </form>
+
+    <div *ngIf="modalMode === 'delete'">
+      <p>Tem certeza que deseja excluir este usuário?</p>
+      <button (click)="deleteUser()">Excluir</button>
+      <button type="button" (click)="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>

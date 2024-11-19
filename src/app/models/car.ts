@@ -1,10 +1,10 @@
-import { User } from './user';  // Importando a tipagem de User
+import { User } from './user';
 
 export interface Car {
-  id: number;
-  year: number;
-  licensePlate: string;
-  model: string;
-  color: string;
+  id?: number;
+  year?: string;
+  licensePlate?: string;
+  model?: string;
+  color?: string;
   user?: User;
 }
