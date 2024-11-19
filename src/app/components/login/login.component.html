@@ -1,0 +1,23 @@
+<div class="login-container">
+  <h1>Login</h1>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <input
+      type="text"
+      name="username"
+      placeholder="Usuário (obrigatório)"
+      [(ngModel)]="username"
+      required
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="Senha (obrigatória)"
+      [(ngModel)]="password"
+      required
+    />
+    <div *ngIf="loginForm.invalid && loginForm.touched" class="error-message">
+      Preencha todos os campos obrigatórios.
+    </div>
+    <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+  </form>
+</div>
