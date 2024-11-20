@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Car } from 'src/app/models/car';
 import { User } from 'src/app/models/user';
 import { UserSubmit } from 'src/app/models/user-submit';
 import { UserService } from 'src/app/services/user.service';
@@ -84,6 +85,7 @@ export class UserComponent implements OnInit {
         }
       });
     }
+    this.loadUsers();
   }
 
   createUser(newUser: User): void {
@@ -113,6 +115,7 @@ export class UserComponent implements OnInit {
         console.error('Erro ao criar usuário:', err);
       }
     });
+    this.loadUsers()
   }
 
   editUser(): void {
@@ -143,6 +146,7 @@ export class UserComponent implements OnInit {
         console.error('Erro ao atualizar usuário:', err);
       }
     });
+    this.loadUsers();
   }
 
   deleteUser(): void {
@@ -158,6 +162,7 @@ export class UserComponent implements OnInit {
         }
       });
     }
+    this.loadUsers();
   }
 
   selectUser(userId: number): void {
@@ -212,12 +217,8 @@ export class UserComponent implements OnInit {
     if (!this.newUser.cars) {
       this.newUser.cars = [];
     }
-
-    if (this.newUser.cars.length < 5) {
-      this.newUser.cars.push({ year: '', model: '', licensePlate: '', color: '' });
-    } else {
-      alert("Você só pode adicionar até 5 carros.");
-    }
+    const newCar: Car = { year: '', licensePlate: '', model: '', color: ''}
+    this.newUser.cars.push(newCar);
   }
 
   removeCar(index: number): void {

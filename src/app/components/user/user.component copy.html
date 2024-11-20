@@ -5,22 +5,14 @@
 <div class="actions">
 </div>
 <div class="actions">
+  <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Buscar usuário por ID</mat-label>
+      <input matInput type="text" placeholder="ID do usuário" [(ngModel)]="selectedUserId" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="searchUserById()">Buscar</button>
+  <button mat-raised-button color="accent" (click)="openModal('create')">Novo Usuário</button>
 </div>
-<div class="actions">
-</div>
-<div class="actions">
-  <div class="search-container">
 
-  </div>
-  <div class="button-container">
-      <mat-form-field appearance="fill" class="search-field">
-          <mat-label>Buscar usuário por ID</mat-label>
-          <input matInput type="text" placeholder="ID do usuário" [(ngModel)]="selectedUserId" />
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="searchUserById()">Buscar</button>
-      <button mat-raised-button color="accent" (click)="openModal('create')">Novo Usuário</button>
-  </div>
-</div>
 <div class="user-table-frame">
   <div class="user-table">
       <table mat-table [dataSource]="users" class="mat-elevation-z8">
@@ -45,6 +37,9 @@
                   <div *ngIf="user.cars.length > 0; else noCars">
                       <div *ngFor="let car of user.cars">
                           ID: {{ car.id }}, Modelo: {{ car.model }}, Ano: {{ car.year }}, Placa: {{ car.licensePlate }}
+                          <button mat-icon-button (click)="removeCar(car.id)">
+                              <mat-icon>close</mat-icon>
+                          </button>
                       </div>
                   </div>
                   <ng-template #noCars>
@@ -67,11 +62,10 @@
   </div>
 </div>
 
+<!-- Modal para Adicionar/Edit/Delete Usuário -->
 <div *ngIf="showModal" class="modal">
   <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
       <h2>{{ modalMode === 'create' ? 'Criar Novo Usuário' : modalMode === 'edit' ? 'Editar Usuário' : 'Excluir Usuário' }}</h2>
-
       <div class="modal-body">
           <div class="user-section">
               <form *ngIf="modalMode !== 'delete'" (ngSubmit)="modalMode === 'create' ? createUser(newUser) : editUser()">
@@ -79,43 +73,36 @@
                       <mat-label>Primeiro Nome</mat-label>
                       <input matInput [(ngModel)]="newUser.firstName" name="firstName" required />
                   </mat-form-field>
-
                   <mat-form-field appearance="fill">
                       <mat-label>Sobrenome</mat-label>
                       <input matInput [(ngModel)]="newUser.lastName" name="lastName" required />
                   </mat-form-field>
-
                   <mat-form-field appearance="fill">
                       <mat-label>Data de Nascimento</mat-label>
                       <input matInput [(ngModel)]="newUser.birthday" name="birthday" type="date" required />
                   </mat-form-field>
-
                   <mat-form-field appearance="fill">
                       <mat-label>E-mail</mat-label>
                       <input matInput [(ngModel)]="newUser.email" name="email" required />
                   </mat-form-field>
-
                   <mat-form-field appearance="fill">
                       <mat-label>Login</mat-label>
                       <input matInput [(ngModel)]="newUser.login" name="login" required />
                   </mat-form-field>
-
                   <mat-form-field appearance="fill">
                       <mat-label>Senha</mat-label>
                       <input matInput [(ngModel)]="newUser.password" name="password" type="password" required />
                   </mat-form-field>
-
                   <mat-form-field appearance="fill">
                       <mat-label>Telefone</mat-label>
                       <input matInput [(ngModel)]="newUser.phone" name="phone" required />
                   </mat-form-field>
               </form>
           </div>
-
-          <div class="car-section" *ngIf="modalMode === 'create'">
+          <div class="car-section">
               <label>Carros:</label>
-              <div class="car-list">
-                  <div *ngFor="let car of newUser.cars || []; let i = index" class="form-group">
+              <div class="car-list" *ngIf="newUser.cars && newUser.cars.length > 0; else noCars">
+                  <div *ngFor="let car of newUser.cars; let i = index" class="form-group">
                       <mat-form-field appearance="fill">
                           <mat-label>Ano</mat-label>
                           <input matInput [(ngModel)]="car.year" placeholder="Ano" required />
@@ -133,23 +120,25 @@
                           <input matInput [(ngModel)]="car.color" placeholder="Cor" required />
                       </mat-form-field>
                       <button mat-icon-button (click)="removeCar(i)">
-                          <mat-icon>close</mat-icon>
                       </button>
                   </div>
               </div>
+              <ng-template #noCars>
+                  <span>Nenhum carro cadastrado.</span>
+              </ng-template>
               <button mat-button (click)="addCar()">Adicionar Carro</button>
           </div>
       </div>
 
-      <div *ngIf="modalMode === 'delete'">
-        <p>Tem certeza que deseja excluir este usuário?</p>
-      </div>
-
       <div class="modal-buttons">
-          <button mat-raised-button color="primary" *ngIf="modalMode !== 'delete'" type="submit">{{ modalMode === 'create' ? 'Salvar' : 'Atualizar' }}</button>
-          <button mat-raised-button color="warn" *ngIf="modalMode === 'delete'" (click)="deleteUser()">Excluir</button>
+          <button mat-raised-button color="primary" type="submit">{{ modalMode === 'create' ? 'Salvar' : 'Atualizar' }}</button>
           <button mat-button color="warn" (click)="closeModal()">Cancelar</button>
       </div>
 
+      <div *ngIf="modalMode === 'delete'">
+          <p>Tem certeza que deseja excluir este usuário?</p>
+          <button mat-raised-button color="warn" (click)="deleteUser()">Excluir</button>
+          <button mat-button (click)="closeModal()">Cancelar</button>
+      </div>
   </div>
 </div>

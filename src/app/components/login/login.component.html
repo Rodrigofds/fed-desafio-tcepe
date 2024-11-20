@@ -18,6 +18,10 @@
     <div *ngIf="loginForm.invalid && loginForm.touched" class="error-message">
       Preencha todos os campos obrigatórios.
     </div>
-    <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    <div class=".button-container">
+      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+      <button class="btn-login" (click)="navigateToUsers()">Voltar</button>
+    </div>
+
   </form>
 </div>

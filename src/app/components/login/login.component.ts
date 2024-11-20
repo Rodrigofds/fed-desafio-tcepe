@@ -25,4 +25,8 @@ export class LoginComponent {
       }
     );
   }
+
+  navigateToUsers(): void {
+    this.router.navigate(['/users']);
+  }
 }
