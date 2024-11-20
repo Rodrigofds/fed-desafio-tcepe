@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarComponent } from './car.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -9,7 +15,13 @@ import { CarComponent } from './car.component';
   declarations: [CarComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDialogModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatIconModule
   ],
   exports: [CarComponent]
 })

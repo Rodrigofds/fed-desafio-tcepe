@@ -119,20 +119,14 @@ export class UserComponent implements OnInit {
   }
 
   editUser(): void {
-    console.log('Entrei em editUser')
     if (this.selectedUserId && this.newUser) {
-      console.log('Tenho o id do usuario e o dados do usuário para editar.')
-      console.log('Chamei a service para atualizar....')
         this.userService.updateUser(this.selectedUserId, this.newUser).subscribe(
             (updatedUser) => {
-                console.log('Procurando usuário na lista de usuários')
                 const index = this.users.findIndex(user => user.id === this.selectedUserId);
                 if (index !== -1) {
-                    console.log('Achei! Vou setar o novo usuário na lista de usuários')
                     this.users[index] = updatedUser;
                     console.log('Usuário atualizado:', updatedUser);
                 }
-                console.log('Não achou o usuário')
                 this.closeModal();
             },
             (error) => {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Car } from 'src/app/models/car';
 import { CarService } from 'src/app/services/car.service';
@@ -15,10 +16,14 @@ export class CarComponent implements OnInit {
   modalMode: 'create' | 'edit' | 'delete' = 'create';
   showModal: boolean = false;
 
-  constructor(private carService: CarService, private authService: AuthService) {}
+  constructor(private carService: CarService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCars();
+  }
+
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
   }
 
   loadCars(): void {
@@ -30,18 +35,24 @@ export class CarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.navigateTo('users');
   }
 
-  openModal(mode: 'create' | 'edit', carId?: number): void {
+  openModal(mode: 'create' | 'edit' | 'delete', carId?: number): void {
     this.modalMode = mode;
     if (mode === 'edit' && carId) {
       const carToEdit = this.cars.find(c => c.id === carId);
       this.newCar = { ...carToEdit };
       this.selectedCarId = carId;
+    } else if (mode === 'delete' && carId) {
+      this.selectedCarId = carId;
+      const selectedCar = this.cars.find(car => car.id === carId);
     } else {
       this.newCar = { year: undefined, model: '', color: '' };
       this.selectedCarId = null;
     }
+
+    this.modalMode = mode;
     this.showModal = true;
   }
 
@@ -53,6 +64,7 @@ export class CarComponent implements OnInit {
         this.closeModal();
       }
     });
+    this.ngOnInit();
   }
 
   updateCar(carId: number | null, car: Car): void {
@@ -68,9 +80,10 @@ export class CarComponent implements OnInit {
         }
       });
     }
+    this.ngOnInit();
   }
 
-  deleteCar(carId?: number): void {
+  deleteCar(carId: number): void {
     if (carId != null || carId != undefined) {
       this.carService.deleteCar(carId).subscribe(() => {
         this.cars = this.cars.filter(c => c.id !== carId);
@@ -78,6 +91,7 @@ export class CarComponent implements OnInit {
         this.closeModal();
       });
     }
+    this.ngOnInit();
   }
 
   closeModal(): void {
