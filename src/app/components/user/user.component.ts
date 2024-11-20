@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Car } from 'src/app/models/car';
 import { User } from 'src/app/models/user';
 import { UserSubmit } from 'src/app/models/user-submit';
 import { UserService } from 'src/app/services/user.service';
@@ -18,7 +19,7 @@ export class UserComponent implements OnInit {
   maxCarRows: number = 0;
 
   newUser: User = {
-    id: undefined,
+    id: null,
     firstName: '',
     lastName: '',
     email: '',
@@ -84,6 +85,7 @@ export class UserComponent implements OnInit {
         }
       });
     }
+    this.loadUsers();
   }
 
   createUser(newUser: User): void {
@@ -113,36 +115,34 @@ export class UserComponent implements OnInit {
         console.error('Erro ao criar usuário:', err);
       }
     });
+    this.loadUsers();
   }
 
   editUser(): void {
-    if (this.selectedUserId === null) {
-      console.error('Nenhum usuário selecionado');
-      return;
+    console.log('Entrei em editUser')
+    if (this.selectedUserId && this.newUser) {
+      console.log('Tenho o id do usuario e o dados do usuário para editar.')
+      console.log('Chamei a service para atualizar....')
+        this.userService.updateUser(this.selectedUserId, this.newUser).subscribe(
+            (updatedUser) => {
+                console.log('Procurando usuário na lista de usuários')
+                const index = this.users.findIndex(user => user.id === this.selectedUserId);
+                if (index !== -1) {
+                    console.log('Achei! Vou setar o novo usuário na lista de usuários')
+                    this.users[index] = updatedUser;
+                    console.log('Usuário atualizado:', updatedUser);
+                }
+                console.log('Não achou o usuário')
+                this.closeModal();
+            },
+            (error) => {
+                console.error('Erro ao atualizar o usuário:', error);
+            }
+        );
+    } else {
+        console.error('ID do usuário não selecionado ou dados do usuário não estão definidos.');
     }
-
-    const updatedUser: User = {
-      id: this.selectedUserId,
-      firstName: this.newUser.firstName,
-      lastName: this.newUser.lastName,
-      email: this.newUser.email,
-      birthday: this.newUser.birthday,
-      login: this.newUser.login,
-      password: this.newUser.password,
-      phone: this.newUser.phone,
-      cars: this.newUser.cars
-    };
-
-    this.userService.updateUser(this.selectedUserId, updatedUser).subscribe({
-      next: (response) => {
-        console.log('Usuário atualizado com sucesso:', response);
-        this.loadUsers();
-        this.closeModal();
-      },
-      error: (err) => {
-        console.error('Erro ao atualizar usuário:', err);
-      }
-    });
+    this.loadUsers();
   }
 
   deleteUser(): void {
@@ -158,6 +158,7 @@ export class UserComponent implements OnInit {
         }
       });
     }
+    this.loadUsers();
   }
 
   selectUser(userId: number): void {
@@ -212,12 +213,8 @@ export class UserComponent implements OnInit {
     if (!this.newUser.cars) {
       this.newUser.cars = [];
     }
-
-    if (this.newUser.cars.length < 5) {
-      this.newUser.cars.push({ year: '', model: '', licensePlate: '', color: '' });
-    } else {
-      alert("Você só pode adicionar até 5 carros.");
-    }
+    const newCar: Car = { year: '', licensePlate: '', model: '', color: ''}
+    this.newUser.cars.push(newCar);
   }
 
   removeCar(index: number): void {
