@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
   maxCarRows: number = 0;
 
   newUser: User = {
-    id: undefined,
+    id: null,
     firstName: '',
     lastName: '',
     email: '',
@@ -115,37 +115,27 @@ export class UserComponent implements OnInit {
         console.error('Erro ao criar usuário:', err);
       }
     });
-    this.loadUsers()
+    this.loadUsers();
   }
 
   editUser(): void {
-    if (this.selectedUserId === null) {
-      console.error('Nenhum usuário selecionado');
-      return;
+    if (this.selectedUserId && this.newUser) {
+        this.userService.updateUser(this.selectedUserId, this.newUser).subscribe(
+            (updatedUser) => {
+                const index = this.users.findIndex(user => user.id === this.selectedUserId);
+                if (index !== -1) {
+                    this.users[index] = updatedUser;
+                    console.log('Usuário atualizado:', updatedUser);
+                }
+                this.closeModal();
+            },
+            (error) => {
+                console.error('Erro ao atualizar o usuário:', error);
+            }
+        );
+    } else {
+        console.error('ID do usuário não selecionado ou dados do usuário não estão definidos.');
     }
-
-    const updatedUser: User = {
-      id: this.selectedUserId,
-      firstName: this.newUser.firstName,
-      lastName: this.newUser.lastName,
-      email: this.newUser.email,
-      birthday: this.newUser.birthday,
-      login: this.newUser.login,
-      password: this.newUser.password,
-      phone: this.newUser.phone,
-      cars: this.newUser.cars
-    };
-
-    this.userService.updateUser(this.selectedUserId, updatedUser).subscribe({
-      next: (response) => {
-        console.log('Usuário atualizado com sucesso:', response);
-        this.loadUsers();
-        this.closeModal();
-      },
-      error: (err) => {
-        console.error('Erro ao atualizar usuário:', err);
-      }
-    });
     this.loadUsers();
   }
 

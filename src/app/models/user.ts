@@ -1,7 +1,7 @@
 import { Car } from "./car";
 
 export interface User {
-  id?: number;
+  id?: number | null;
   firstName: string;
   lastName: string;
   email: string;

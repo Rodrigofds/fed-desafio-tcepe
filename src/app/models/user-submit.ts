@@ -1,7 +1,7 @@
 import { CarSubmit } from "./car-submit";
 
 export interface UserSubmit {
-  id?: number;
+  id?: number | null;
   firstName: string;
   lastName: string;
   email: string;

@@ -44,7 +44,7 @@
               <td mat-cell *matCellDef="let user">
                   <div *ngIf="user.cars.length > 0; else noCars">
                       <div *ngFor="let car of user.cars">
-                          ID: {{ car.id }}, Modelo: {{ car.model }}, Ano: {{ car.year }}, Placa: {{ car.licensePlate }}
+                          ID: {{ car.id }} - Modelo: {{ car.model }} - Ano: {{ car.year }} - Placa: {{ car.licensePlate }}
                       </div>
                   </div>
                   <ng-template #noCars>
@@ -146,7 +146,8 @@
       </div>
 
       <div class="modal-buttons">
-          <button mat-raised-button color="primary" *ngIf="modalMode !== 'delete'" type="submit">{{ modalMode === 'create' ? 'Salvar' : 'Atualizar' }}</button>
+          <button mat-raised-button color="primary" *ngIf="modalMode !== 'delete'" (click)="modalMode === 'create' ?
+          createUser(newUser) : editUser()">{{ modalMode === 'create' ?'Salvar' : 'Atualizar' }}</button>
           <button mat-raised-button color="warn" *ngIf="modalMode === 'delete'" (click)="deleteUser()">Excluir</button>
           <button mat-button color="warn" (click)="closeModal()">Cancelar</button>
       </div>
