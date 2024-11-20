@@ -1,0 +1,60 @@
+<div class="navbar">
+  <span class="title">Gerenciador de Carros</span>
+  <button class="btn-logout" (click)="logout()">Logout</button>
+</div>
+
+<div class="actions">
+  <button class="btn-new-car" (click)="openModal('create')">Novo Carro</button>
+</div>
+
+<div class="car-table">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ano</th>
+        <th>Modelo</th>
+        <th>Cor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let car of cars">
+        <td>{{ car.id }}</td>
+        <td>{{ car.year }}</td>
+        <td>{{ car.model }}</td>
+        <td>{{ car.color }}</td>
+        <td>
+          <button (click)="openModal('edit', car.id)">Editar</button>
+          <button (click)="deleteCar(car.id)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal para criar ou editar carro -->
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <h2>{{ modalMode === 'create' ? 'Criar Novo Carro' : 'Editar Carro' }}</h2>
+    <form *ngIf="modalMode !== 'delete'" (ngSubmit)="modalMode === 'create' ? createCar(newCar) : updateCar(selectedCarId, newCar)">
+      <label for="year">Ano:</label>
+      <input [(ngModel)]="newCar.year" name="year" required>
+
+      <label for="model">Modelo:</label>
+      <input [(ngModel)]="newCar.model" name="model" required>
+
+      <label for="color">Cor:</label>
+      <input [(ngModel)]="newCar.color" name="color" required>
+
+      <button type="submit">{{ modalMode === 'create' ? 'Salvar' : 'Atualizar' }}</button>
+      <button type="button" (click)="closeModal()">Cancelar</button>
+    </form>
+
+    <div *ngIf="modalMode === 'delete'">
+      <p>Tem certeza que deseja excluir este carro?</p>
+      <button (click)="deleteCar(selectedCarId!)">Excluir</button>
+      <button (click)="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
