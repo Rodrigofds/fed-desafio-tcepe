@@ -18,7 +18,17 @@
           <p><strong>Telefone:</strong> {{ userProfile.phone }}</p>
       </mat-card-content>
   </mat-card>
+  <mat-card *ngIf="userProfile">
+      <mat-card-content>
+          <p><strong>Nome:</strong> {{ userProfile.firstName }} {{ userProfile.lastName }}</p>
+          <p><strong>Email:</strong> {{ userProfile.email }}</p>
+          <p><strong>Data de Nascimento:</strong> {{ userProfile.birthday | date }}</p>
+          <p><strong>Login:</strong> {{ userProfile.login }}</p>
+          <p><strong>Telefone:</strong> {{ userProfile.phone }}</p>
+      </mat-card-content>
+  </mat-card>
   <div *ngIf="!userProfile">
+      <p>Carregando perfil do usuário...</p>
       <p>Carregando perfil do usuário...</p>
   </div>
 </div>
