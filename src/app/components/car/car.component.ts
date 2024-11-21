@@ -61,10 +61,10 @@ export class CarComponent implements OnInit {
       if (newCar) {
         this.cars.push(newCar);
         console.log('New car added:', newCar);
+        this.loadCars();
         this.closeModal();
       }
     });
-    this.ngOnInit();
   }
 
   updateCar(carId: number | null, car: Car): void {
@@ -75,12 +75,12 @@ export class CarComponent implements OnInit {
           if (index !== -1) {
             this.cars[index] = updatedCar;
             console.log('Car updated:', updatedCar);
+            this.loadCars();
             this.closeModal();
           }
         }
       });
     }
-    this.ngOnInit();
   }
 
   deleteCar(carId: number): void {
@@ -88,10 +88,10 @@ export class CarComponent implements OnInit {
       this.carService.deleteCar(carId).subscribe(() => {
         this.cars = this.cars.filter(c => c.id !== carId);
         console.log('Car deleted:', carId);
+        this.loadCars();
         this.closeModal();
       });
     }
-    this.ngOnInit();
   }
 
   closeModal(): void {
