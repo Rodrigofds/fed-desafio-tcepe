@@ -1,17 +1,24 @@
 <div class="navbar">
   <span class="title">Gerenciador de Usuários e Carros</span>
-  <button class="btn-login" (click)="navigateToUsers()">Voltar</button>
+  <div class="navbar-buttons">
+      <button mat-button (click)="navigateToUsers()">Dashboard</button>
+      <button mat-button (click)="navigateToCars()">Meus Carros</button>
+      <button mat-button (click)="navigateToAndLogout()">Logout</button>
+  </div>
 </div>
+
 <div class="user-profile">
   <h2>Perfil do Usuário</h2>
-  <div *ngIf="userProfile">
-    <p><strong>Nome:</strong> {{ userProfile.firstName }} {{ userProfile.lastName }}</p>
-    <p><strong>Email:</strong> {{ userProfile.email }}</p>
-    <p><strong>Data de Nascimento:</strong> {{ userProfile.birthday | date }}</p>
-    <p><strong>Login:</strong> {{ userProfile.login }}</p>
-    <p><strong>Telefone:</strong> {{ userProfile.phone }}</p>
-  </div>
+  <mat-card *ngIf="userProfile">
+      <mat-card-content>
+          <p><strong>Nome:</strong> {{ userProfile.firstName }} {{ userProfile.lastName }}</p>
+          <p><strong>Email:</strong> {{ userProfile.email }}</p>
+          <p><strong>Data de Nascimento:</strong> {{ userProfile.birthday | date }}</p>
+          <p><strong>Login:</strong> {{ userProfile.login }}</p>
+          <p><strong>Telefone:</strong> {{ userProfile.phone }}</p>
+      </mat-card-content>
+  </mat-card>
   <div *ngIf="!userProfile">
-    <p>Carregando perfil do usuário...</p>
+      <p>Carregando perfil do usuário...</p>
   </div>
 </div>
