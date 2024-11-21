@@ -1,27 +1,33 @@
-<div class="login-container">
-  <h1>Login</h1>
-  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-    <input
-      type="text"
-      name="username"
-      placeholder="Usuário (obrigatório)"
-      [(ngModel)]="username"
-      required
-    />
-    <input
-      type="password"
-      name="password"
-      placeholder="Senha (obrigatória)"
-      [(ngModel)]="password"
-      required
-    />
-    <div *ngIf="loginForm.invalid && loginForm.touched" class="error-message">
-      Preencha todos os campos obrigatórios.
-    </div>
-    <div class=".button-container">
-      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
-      <button class="btn-login" (click)="navigateToUsers()">Voltar</button>
-    </div>
+<div>
+  <div class="navbar">
+    <span class="title">Gerenciador de Usuários e Carros</span>
+  </div>
 
-  </form>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Usuário (obrigatório)</mat-label>
+        <input matInput type="text" name="username" placeholder="Usuário" [(ngModel)]="username" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Senha (obrigatória)</mat-label>
+        <input matInput type="password" name="password" placeholder="Senha" [(ngModel)]="password" required />
+      </mat-form-field>
+
+      <div *ngIf="loginForm.invalid && loginForm.touched" class="error-message">
+        Preencha todos os campos obrigatórios.
+      </div>
+
+      <div class="button-container">
+        <div class="button-wrapper">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Entrar</button>
+        </div>
+        <div class="button-wrapper">
+          <button mat-button class="btn-login" (click)="navigateToUsers()">Voltar</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

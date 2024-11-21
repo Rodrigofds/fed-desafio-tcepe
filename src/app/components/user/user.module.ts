@@ -10,8 +10,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
 @NgModule({
   declarations: [UserComponent,
     RangePipe

@@ -18,7 +18,7 @@ export class LoginComponent {
     this.authService.signin(this.username, this.password).subscribe(
       response => {
         this.authService.storeToken(response.token);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/cars']);
       },
       error => {
         console.error('Erro ao fazer login', error);

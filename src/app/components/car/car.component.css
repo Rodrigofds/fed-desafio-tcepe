@@ -1,0 +1,101 @@
+/* Estilos para a navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #3f51b5; /* Cor de fundo da navbar */
+  color: white; /* Cor do texto */
+  position: fixed; /* Fixa a navbar ao topo */
+  top: 0; /* Alinha ao topo da página */
+  left: 0; /* Alinha à esquerda */
+  right: 0; /* Alinha à direita */
+  z-index: 1000; /* Certifica-se de que a navbar está acima de outros elementos */
+}
+
+/* Estilo para o título */
+.title {
+  flex-grow: 1; /* Faz o título ocupar o espaço restante */
+  text-align: center; /* Centraliza o texto */
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Estilos para a seção de ações */
+.actions {
+  display: flex;
+  justify-content: flex-start; /* Alinha os itens à esquerda */
+  align-items: center;
+  margin: 80px 20px 20px; /* Margem superior para afastar do topo */
+}
+
+/* Estilo para a tabela de carros */
+.car-table {
+  margin: 20px; /* Margem externa */
+}
+
+/* Estilos para a tabela */
+table {
+  width: 100%; /* Tabela ocupa toda a largura */
+  border-collapse: collapse; /* Remove espaço entre bordas da tabela */
+}
+
+th, td {
+  padding: 10px; /* Espaçamento interno nas células */
+  text-align: left; /* Alinha o texto à esquerda */
+  border-bottom: 1px solid #ddd; /* Borda inferior nas células */
+}
+
+th {
+  background-color: #3f51b5; /* Cor de fundo do cabeçalho */
+  color: rgb(0, 0, 0); /* Cor do texto do cabeçalho */
+}
+
+/* Estilos para o modal */
+.modal {
+  position: fixed; /* Fixa o modal na tela */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centraliza o modal */
+  width: 80%; /* Largura do modal */
+  max-width: 800px; /* Largura máxima */
+  background-color: #fff; /* Cor de fundo do modal */
+  border: 1px solid #00ff00; /* Borda verde */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para o modal */
+  border-radius: 8px; /* Bordas arredondadas */
+  z-index: 1000; /* Fixa o modal acima de outros elementos */
+  padding: 20px; /* Espaçamento interno */
+}
+
+.modal-body {
+  display: flex; /* Para layout lado a lado */
+  justify-content: space-between; /* Espaçamento entre as seções */
+}
+
+.user-section {
+  flex: 1; /* Permite que a seção do usuário ocupe o espaço disponível */
+  margin-right: 20px; /* Espaçamento entre as seções */
+}
+
+.car-section {
+  flex: 1; /* Permite que a seção dos carros ocupe o espaço disponível */
+  max-height: 400px; /* Altura máxima para permitir rolagem se necessário */
+  overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between; /* Espaçamento entre os botões */
+  margin-top: 20px; /* Margem superior */
+}
+
+.close {
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  float: right; /* Alinha o botão de fechar à direita */
+}
+
+/* Estilo para mensagens de erro */
+.error-message {
+  color: red; /* Cor da mensagem de erro */
+  margin-top: 10px; /* Espaço acima da mensagem de erro */
+}

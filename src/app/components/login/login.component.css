@@ -1,59 +1,57 @@
-:host {
+/* Estilos para a navbar */
+.navbar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f2f5;
-  font-family: Arial, sans-serif;
+  padding: 10px 20px;
+  background-color: #3f51b5; /* Cor de fundo da navbar */
+  color: white; /* Cor do texto */
+  position: fixed; /* Fixa a navbar ao topo */
+  top: 0; /* Alinha ao topo da página */
+  left: 0; /* Alinha à esquerda */
+  right: 0; /* Alinha à direita */
+  z-index: 1000; /* Certifica-se de que a navbar está acima de outros elementos */
 }
 
+/* Estilo para o título */
+.title {
+  flex-grow: 1; /* Faz o título ocupar o espaço restante */
+  text-align: center; /* Centraliza o texto */
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Estilos para a tela de login */
 .login-container {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
+  margin-top: 80px; /* Margem superior para afastar do topo */
+  padding: 20px; /* Espaçamento interno */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
 }
 
-.login-container h1 {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #333;
+/* Estilo para mensagens de erro */
+.error-message {
+  color: red; /* Cor da mensagem de erro */
+  margin-top: 10px; /* Espaço acima da mensagem de erro */
 }
 
-.login-container input {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  box-sizing: border-box;
+/* Estilo para o container dos botões */
+.button-container {
+  display: flex; /* Alinha os botões lado a lado */
+  justify-content: space-between; /* Espaça os botões igualmente */
+  width: 100%; /* Ocupa toda a largura disponível */
+  margin-top: 20px; /* Espaço acima dos botões */
 }
 
-.login-container input::placeholder {
-  color: #aaa;
-  font-size: 0.9rem;
+/* Estilo para os wrappers dos botões */
+.button-wrapper {
+  flex: 1; /* Permite que os botões ocupem espaço igual */
+  display: flex; /* Permite centralização dos botões */
+  justify-content: center; /* Centraliza os botões dentro de seus wrappers */
 }
 
-.login-container button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.login-container button:hover {
-  background-color: #0056b3;
-}
-
-.login-container .error-message {
-  color: red;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+/* Ajuste de altura dos botões */
+button {
+  height: 56px; /* Altura padrão do botão do Angular Material */
 }

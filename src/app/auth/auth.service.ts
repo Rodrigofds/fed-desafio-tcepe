@@ -25,10 +25,12 @@ export class AuthService {
       tap(response => {
         if (response.token) {
           this.storeToken(response.token);
+        } else {
+          alert('Login ou password inválida(s)');
         }
       })
     );
-  } 
+  }
 
   storeToken(token: string): void {
     sessionStorage.setItem('token', token);
