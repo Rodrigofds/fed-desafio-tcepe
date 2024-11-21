@@ -1,7 +1,9 @@
+
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserProfileService } from 'src/app/services/user-profile.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,12 +11,18 @@ import { UserProfileService } from 'src/app/services/user-profile.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+[x: string]: any;
   userProfile: User | null = null;
 
-  constructor(private userProfileService: UserProfileService,private router: Router) {}
+  constructor(private userProfileService: UserProfileService,private router: Router,private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.loadUserProfile();
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
   }
 
   loadUserProfile(): void {
@@ -24,7 +32,17 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  navigateToCars(): void {
+    this.router.navigate(['/cars']);
+  }
+
+  navigateToAndLogout(): void {
+    this.authService.logout();
+    this.router.navigate(['/users']);
+  }
+
   navigateToUsers(): void {
     this.router.navigate(['/users']);
   }
+
 }
